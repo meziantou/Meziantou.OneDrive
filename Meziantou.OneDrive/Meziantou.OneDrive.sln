@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.22512.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Meziantou.OneDrive", "Meziantou.OneDrive\Meziantou.OneDrive.csproj", "{F22C3FEF-475E-42C0-8191-980142FD594C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Meziantou.OneDrive.Sample", "Meziantou.OneDrive.Sample\Meziantou.OneDrive.Sample.csproj", "{279C2E4E-EA46-48AC-BB52-57CFE3EA5E65}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F22C3FEF-475E-42C0-8191-980142FD594C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F22C3FEF-475E-42C0-8191-980142FD594C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F22C3FEF-475E-42C0-8191-980142FD594C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F22C3FEF-475E-42C0-8191-980142FD594C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{279C2E4E-EA46-48AC-BB52-57CFE3EA5E65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{279C2E4E-EA46-48AC-BB52-57CFE3EA5E65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{279C2E4E-EA46-48AC-BB52-57CFE3EA5E65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{279C2E4E-EA46-48AC-BB52-57CFE3EA5E65}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

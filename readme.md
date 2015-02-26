@@ -2,7 +2,7 @@
 
 # How to use the code
 
-To use Microsoft OneDrive API, you must register your application on <https://account.live.com/developers/applications> to get a clientId like "0000000000000000".
+To use Microsoft OneDrive API, you must register your application on <https://account.live.com/developers/applications> to get a clientId like `0000000000000000`.
 
 **Authentication**
 
@@ -16,7 +16,7 @@ To use Microsoft OneDrive API, you must register your application on <https://ac
 	    Scope.OfflineAccess
 	}, refreshTokenHandler /* may be null */);
 
-The refresh token handler persists the refresh token so you may not need to re-authenticate the next time you need to create a session. We provide 2 refresh token handlers: InMemory and [CredentialManager](https://gist.github.com/meziantou/10311113).
+The refresh token handler persists the refresh token so you may not need to re-authenticate the next time you need to create a session. We provide 2 refresh token handlers: `InMemory` and [CredentialManager](https://gist.github.com/meziantou/10311113).
 
 Then you can create a `OneDriveClient`:
 
@@ -51,7 +51,7 @@ Then you can create a `OneDriveClient`:
 
 **Download a file**
     
-	Stream stream = await file.DownloadAsync(cancellationToken)
+    Stream stream = await file.DownloadAsync(cancellationToken)
     Stream stream = await file.DownloadAsync(rangeStart: 0, rangeEnd: 100, cancellationToken) // in byte
 
 **Upload a file**

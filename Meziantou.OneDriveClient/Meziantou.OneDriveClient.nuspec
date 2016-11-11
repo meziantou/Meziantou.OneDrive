@@ -10,6 +10,9 @@
     <description>$description$</description>
     <copyright>Copyright 2016</copyright>
     <tags>OneDrive</tags>
+    <dependencies>
+      <dependency id="Newtonsoft.Json" version="9.0.1" />
+    </dependencies>
 	<projectUrl>https://github.com/meziantou/Meziantou.OneDrive</projectUrl>
   </metadata>
 </package>

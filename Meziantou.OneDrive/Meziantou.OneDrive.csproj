@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9231D25A-7323-4122-822F-7A225E3AC283}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Meziantou.OneDrive</RootNamespace>
+    <AssemblyName>Meziantou.OneDrive</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="Meziantou.OneDrive.nuspec" />
+    <None Include="project.json" />
+    <!-- A reference to the entire .NET Framework is automatically included -->
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Audio.cs" />
+    <Compile Include="CancelEventArgs.cs" />
+    <Compile Include="ChunkedUploadSessionResult.cs" />
+    <Compile Include="ChunkUploadErrorEventArgs.cs" />
+    <Compile Include="Error.cs" />
+    <Compile Include="ErrorResponse.cs" />
+    <Compile Include="File.cs" />
+    <Compile Include="FileSystemInfo.cs" />
+    <Compile Include="Folder.cs" />
+    <Compile Include="Hashes.cs" />
+    <Compile Include="IAuthorizationProvider.cs" />
+    <Compile Include="Identity.cs" />
+    <Compile Include="IdentitySet.cs" />
+    <Compile Include="Image.cs" />
+    <Compile Include="IRefreshTokenHandler.cs" />
+    <Compile Include="ItemReference.cs" />
+    <Compile Include="Location.cs" />
+    <Compile Include="MemoryRefreshTokenHandler.cs" />
+    <Compile Include="OneDriveClient.cs" />
+    <Compile Include="OneDriveClientGetOptions.cs" />
+    <Compile Include="OneDriveErrorCode.cs" />
+    <Compile Include="OneDriveException.cs" />
+    <Compile Include="OneDriveItem.cs" />
+    <Compile Include="OneDriveItemConverter.cs" />
+    <Compile Include="OneDriveToken.cs" />
+    <Compile Include="Package.cs" />
+    <Compile Include="PagedResponse.cs" />
+    <Compile Include="Photo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RefreshTokenInfo.cs" />
+    <Compile Include="RemoveItem.cs" />
+    <Compile Include="SearchResult.cs" />
+    <Compile Include="Shared.cs" />
+    <Compile Include="SharedScope.cs" />
+    <Compile Include="SharepointIds.cs" />
+    <Compile Include="SpecialFolder.cs" />
+    <Compile Include="StreamWithDisposeEvents.cs" />
+    <Compile Include="Thumbnail.cs" />
+    <Compile Include="ThumbnailSet.cs" />
+    <Compile Include="Video.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

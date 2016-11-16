@@ -16,9 +16,9 @@ Install-Package Meziantou.OneDriveClient.Windows
 
 ```
 // Initialize the client
-var client = new OneDriveClient.OneDriveClient();
+var client = new OneDriveClient();
 client.ApplicationId = "000000004418B915";
-client.AuthorizationProvider = new AuthorizationCodeProvider(); // Display the login window
+client.AuthorizationProvider = new AuthorizationCodeProvider(); // Provider to display the login window
 
 // Optional
 // Store the refresh token, so the application can re-authenticate automatically when the token expires

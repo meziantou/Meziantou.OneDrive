@@ -32,6 +32,7 @@ namespace Meziantou.OneDrive
         public IdentitySet CreatedBy { get; set; }
         public IdentitySet LastModifiedBy { get; set; }
         public Audio Audio { get; set; }
+        public Deleted Deleted { get; set; }
         public FileSystemInfo FileSystemInfo { get; set; }
         public Folder Folder { get; set; }
         public File File { get; set; }

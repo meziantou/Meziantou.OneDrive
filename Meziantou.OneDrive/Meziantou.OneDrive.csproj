@@ -44,6 +44,7 @@
     <Compile Include="CancelEventArgs.cs" />
     <Compile Include="ChunkedUploadSessionResult.cs" />
     <Compile Include="ChunkUploadErrorEventArgs.cs" />
+    <Compile Include="Deleted.cs" />
     <Compile Include="Error.cs" />
     <Compile Include="ErrorResponse.cs" />
     <Compile Include="File.cs" />

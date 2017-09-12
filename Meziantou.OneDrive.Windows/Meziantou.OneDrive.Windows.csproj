@@ -43,8 +43,6 @@
       <DependentUpon>AuthenticationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="AuthorizationCodeProvider.cs" />
-    <Compile Include="Credential.cs" />
-    <Compile Include="CredentialManager.cs" />
     <Compile Include="CredentialManagerRefreshTokenHandler.cs" />
     <Compile Include="CredentialType.cs" />
     <Compile Include="ExtendedWebBrowser.cs">
@@ -54,18 +52,23 @@
     <Compile Include="WebBrowserNavigateErrorEventArgs.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Meziantou.OneDrive\Meziantou.OneDrive.csproj">
-      <Project>{9231d25a-7323-4122-822f-7a225e3ac283}</Project>
-      <Name>Meziantou.OneDriveClient</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="AuthenticationForm.resx">
       <DependentUpon>AuthenticationForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="Meziantou.OneDrive.Windows.nuspec" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Meziantou.OneDrive\Meziantou.OneDrive.csproj">
+      <Project>{e924c220-bcb4-4590-b002-06482a0fe1f5}</Project>
+      <Name>Meziantou.OneDrive</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Meziantou.Framework.Win32.CredentialManager">
+      <Version>1.0.1</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

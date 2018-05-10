@@ -14,9 +14,7 @@ namespace Meziantou.OneDrive
 
         public OneDriveItem(OneDriveClient client)
         {
-            if (client == null) throw new ArgumentNullException(nameof(client));
-
-            _client = client;
+            _client = client ?? throw new ArgumentNullException(nameof(client));
         }
 
         public string Id { get; set; }

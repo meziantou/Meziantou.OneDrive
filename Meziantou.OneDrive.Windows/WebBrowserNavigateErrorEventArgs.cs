@@ -9,8 +9,8 @@
             StatusCode = statusCode;
         }
 
-        public string Url { get; private set; }
-        public string Frame { get; private set; }
-        public int StatusCode { get; private set; }
+        public string Url { get; }
+        public string Frame { get; }
+        public int StatusCode { get; }
     }
 }

@@ -9,8 +9,7 @@ namespace Meziantou.OneDrive
 
         public OneDriveItemConverter(OneDriveClient client)
         {
-            if (client == null) throw new ArgumentNullException(nameof(client));
-            _client = client;
+            _client = client ?? throw new ArgumentNullException(nameof(client));
         }
 
         public override bool CanConvert(Type type)

@@ -12,9 +12,7 @@ namespace Meziantou.OneDrive.Windows
 
         public CredentialManagerRefreshTokenHandler(string applicationName, CredentialPersistence credentialPersistence)
         {
-            if (applicationName == null) throw new ArgumentNullException(nameof(applicationName));
-
-            _applicationName = applicationName;
+            _applicationName = applicationName ?? throw new ArgumentNullException(nameof(applicationName));
             _credentialPersistence = credentialPersistence;
         }
 

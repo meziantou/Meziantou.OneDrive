@@ -11,8 +11,7 @@ namespace Meziantou.OneDrive
 
         public StreamWithDisposeEvents(Stream stream)
         {
-            if (stream == null) throw new ArgumentNullException(nameof(stream));
-            _stream = stream;
+            _stream = stream ?? throw new ArgumentNullException(nameof(stream));
         }
 
         protected override void Dispose(bool disposing)

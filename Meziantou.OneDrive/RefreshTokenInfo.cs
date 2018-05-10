@@ -6,8 +6,7 @@ namespace Meziantou.OneDrive
     {
         public RefreshTokenInfo(string refreshToken)
         {
-            if (refreshToken == null) throw new ArgumentNullException(nameof(refreshToken));
-            RefreshToken = refreshToken;
+            RefreshToken = refreshToken ?? throw new ArgumentNullException(nameof(refreshToken));
         }
 
         public string RefreshToken { get; }

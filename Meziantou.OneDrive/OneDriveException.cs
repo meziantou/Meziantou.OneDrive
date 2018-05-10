@@ -10,7 +10,7 @@ namespace Meziantou.OneDrive
             Error = error;
         }
 
-        public Error Error { get; private set; }
+        public Error Error { get; }
 
         public bool IsMatch(OneDriveErrorCode errorCode)
         {

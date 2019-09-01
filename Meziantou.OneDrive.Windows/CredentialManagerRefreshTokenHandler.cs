@@ -5,7 +5,7 @@ using Meziantou.Framework.Win32;
 
 namespace Meziantou.OneDrive.Windows
 {
-    public class CredentialManagerRefreshTokenHandler : IRefreshTokenHandler
+    public sealed class CredentialManagerRefreshTokenHandler : IRefreshTokenHandler
     {
         private readonly string _applicationName;
         private readonly CredentialPersistence _credentialPersistence;

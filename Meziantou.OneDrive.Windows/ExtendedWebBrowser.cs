@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace Meziantou.OneDrive.Windows
 {
-    internal class ExtendedWebBrowser : WebBrowser
+    internal sealed class ExtendedWebBrowser : WebBrowser
     {
         private AxHost.ConnectionPointCookie _cookie;
         private WebBrowser2EventHelper _helper;
@@ -28,7 +28,7 @@ namespace Meziantou.OneDrive.Windows
             base.DetachSink();
         }
 
-        protected virtual void OnNavigateError(object sender, WebBrowserNavigateErrorEventArgs e)
+        private void OnNavigateError(object sender, WebBrowserNavigateErrorEventArgs e)
         {
             NavigateError?.Invoke(this, e);
         }
@@ -44,7 +44,7 @@ namespace Meziantou.OneDrive.Windows
 
             public void NavigateError(object pDisp, ref object url, ref object frame, ref object statusCode, ref bool cancel)
             {
-                WebBrowserNavigateErrorEventArgs e = new WebBrowserNavigateErrorEventArgs((string)url, (string)frame, (int)statusCode);
+                var e = new WebBrowserNavigateErrorEventArgs((string)url, (string)frame, (int)statusCode);
                 _parent.OnNavigateError(_parent, e);
                 cancel = e.Cancel;
             }

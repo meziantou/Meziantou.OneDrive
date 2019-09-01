@@ -1,81 +1,21 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C7591F4A-C182-430C-AF6F-E1FBFCD73309}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Meziantou.OneDrive.Windows</RootNamespace>
-    <AssemblyName>Meziantou.OneDrive.Windows</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <TargetFrameworks>net461;netcoreapp3.0</TargetFrameworks>
+    <UseWindowsForms>true</UseWindowsForms>
+    <PackageProjectUrl>https://github.com/meziantou/Meziantou.OneDrive</PackageProjectUrl>
+    <Version>1.0.3</Version>
+    <Description>Client to use the Microsoft OneDrive api</Description>
+    <Company>Meziantou</Company>
+    <Authors>Meziantou</Authors>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
+    <PackageReference Include="Meziantou.Framework.Win32.CredentialManager" Version="1.3.3" />
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="AuthenticationForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AuthenticationForm.designer.cs">
-      <DependentUpon>AuthenticationForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="AuthorizationCodeProvider.cs" />
-    <Compile Include="CredentialManagerRefreshTokenHandler.cs" />
-    <Compile Include="CredentialType.cs" />
-    <Compile Include="ExtendedWebBrowser.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WebBrowserNavigateErrorEventArgs.cs" />
+    <ProjectReference Include="..\Meziantou.OneDrive\Meziantou.OneDrive.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="AuthenticationForm.resx">
-      <DependentUpon>AuthenticationForm.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Meziantou.OneDrive.Windows.nuspec" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Meziantou.OneDrive\Meziantou.OneDrive.csproj">
-      <Project>{e924c220-bcb4-4590-b002-06482a0fe1f5}</Project>
-      <Name>Meziantou.OneDrive</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Meziantou.Framework.Win32.CredentialManager">
-      <Version>1.0.1</Version>
-    </PackageReference>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>

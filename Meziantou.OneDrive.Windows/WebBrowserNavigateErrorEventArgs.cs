@@ -1,6 +1,6 @@
 ﻿namespace Meziantou.OneDrive.Windows
 {
-    internal class WebBrowserNavigateErrorEventArgs : CancelEventArgs
+    internal sealed class WebBrowserNavigateErrorEventArgs : CancelEventArgs
     {
         public WebBrowserNavigateErrorEventArgs(string url, string frame, int statusCode)
         {

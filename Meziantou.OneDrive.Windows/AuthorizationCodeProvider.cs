@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace Meziantou.OneDrive.Windows
 {
-    public class AuthorizationCodeProvider : IAuthorizationProvider
+    public sealed class AuthorizationCodeProvider : IAuthorizationProvider
     {
         public string LoginUrl { get; set; } = "https://login.live.com/oauth20_authorize.srf";
 

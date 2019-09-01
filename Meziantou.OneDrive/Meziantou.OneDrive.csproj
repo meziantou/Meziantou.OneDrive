@@ -3,10 +3,11 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
     <PackageProjectUrl>https://github.com/meziantou/Meziantou.OneDrive</PackageProjectUrl>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <Description>Client to use the Microsoft OneDrive api</Description>
     <Company>Meziantou</Company>
     <Authors>Meziantou</Authors>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>

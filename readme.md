@@ -23,7 +23,7 @@ client.AuthorizationProvider = new AuthorizationCodeProvider(); // Provider to d
 // Optional
 // Store the refresh token, so the application can re-authenticate automatically when the token expires
 client.RefreshTokenHandler = new MemoryRefreshTokenHandler();
-client.RefreshTokenHandler = new CredentialManagerRefreshTokenHandler("appname");
+client.RefreshTokenHandler = new CredentialManagerRefreshTokenHandler("appname", CredentialPersistence.LocalMachine);
 ```
 
 3. Use the client:

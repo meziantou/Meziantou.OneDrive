@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 
 namespace Meziantou.OneDrive
 {
-    internal class OneDriveToken
+    internal sealed class OneDriveToken
     {
         [JsonProperty("token_type")]
         public string Type { get; set; }

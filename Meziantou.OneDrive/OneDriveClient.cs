@@ -34,12 +34,12 @@ namespace Meziantou.OneDrive
             _client?.Dispose();
         }
 
-        public Task LogOutAsync(CancellationToken ct = default(CancellationToken))
+        public Task LogOutAsync(CancellationToken ct = default)
         {
             return LogOutAsync(true, true, ct);
         }
 
-        public async Task LogOutAsync(bool removeRefreshToken, bool removeCookies, CancellationToken ct = default(CancellationToken))
+        public async Task LogOutAsync(bool removeRefreshToken, bool removeCookies, CancellationToken ct = default)
         {
             _accessCode = null;
             if (removeRefreshToken && RefreshTokenHandler != null)
@@ -54,12 +54,12 @@ namespace Meziantou.OneDrive
             }
         }
 
-        public Task<bool> AuthenticateAsync(CancellationToken ct = default(CancellationToken))
+        public Task<bool> AuthenticateAsync(CancellationToken ct = default)
         {
             return AuthenticateAsync(false, ct);
         }
 
-        public async Task<bool> AuthenticateAsync(bool force, CancellationToken ct = default(CancellationToken))
+        public async Task<bool> AuthenticateAsync(bool force, CancellationToken ct = default)
         {
             // https://dev.onedrive.com/auth/msa_oauth.htm
             if (!force && _accessCode != null)
@@ -71,7 +71,7 @@ namespace Meziantou.OneDrive
             var authorizationCode = AuthorizationProvider.GetAuthorizationCode(this);
             if (authorizationCode != null)
             {
-                var parameters = new Dictionary<string, string>();
+                var parameters = new Dictionary<string, string>(StringComparer.Ordinal);
                 parameters["client_id"] = ApplicationId;
                 parameters["redirect_uri"] = ReturnUrl;
                 //parameters["client_secret"] = "";
@@ -105,7 +105,7 @@ namespace Meziantou.OneDrive
             if (refreshToken?.RefreshToken == null)
                 return false;
 
-            var parameters = new Dictionary<string, string>();
+            var parameters = new Dictionary<string, string>(StringComparer.Ordinal);
             parameters["client_id"] = ApplicationId;
             parameters["redirect_uri"] = ReturnUrl;
             //parameters["client_secret"] = "";
@@ -116,14 +116,14 @@ namespace Meziantou.OneDrive
             return IsAuthenticated;
         }
 
-        private async Task<bool> HandleExceptionAsync(Exception ex, CancellationToken ct = default(CancellationToken))
+        private async Task<bool> HandleExceptionAsync(Exception ex, CancellationToken ct = default)
         {
             var oneDriveException = ex as OneDriveException;
             if (oneDriveException != null)
             {
                 if (AuthenticateOnUnauthenticatedError && oneDriveException.IsMatch(OneDriveErrorCode.Unauthenticated))
                 {
-                    return await AuthenticateAsync(true, ct); // Force re-authentication
+                    return await AuthenticateAsync(true, ct).ConfigureAwait(false); // Force re-authentication
                 }
             }
 
@@ -136,11 +136,11 @@ namespace Meziantou.OneDrive
             {
                 try
                 {
-                    return await func();
+                    return await func().ConfigureAwait(false);
                 }
                 catch (Exception ex)
                 {
-                    if (await HandleExceptionAsync(ex, ct))
+                    if (await HandleExceptionAsync(ex, ct).ConfigureAwait(false))
                         continue;
 
                     throw;
@@ -154,12 +154,12 @@ namespace Meziantou.OneDrive
             {
                 try
                 {
-                    await func();
+                    await func().ConfigureAwait(false);
                     return;
                 }
                 catch (OneDriveException ex)
                 {
-                    if (await HandleExceptionAsync(ex, ct))
+                    if (await HandleExceptionAsync(ex, ct).ConfigureAwait(false))
                         continue;
 
                     throw;
@@ -213,7 +213,7 @@ namespace Meziantou.OneDrive
                 using (var result = await _client.GetAsync(url, ct).ConfigureAwait(false))
                 {
                     if (options.HasFlag(OneDriveClientGetOptions.ReturnDefaultWhenNotFound) && result.StatusCode == HttpStatusCode.NotFound)
-                        return default(T);
+                        return default;
 
                     await EnsureResultAsync(result, ct).ConfigureAwait(false);
                     var json = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -222,10 +222,10 @@ namespace Meziantou.OneDrive
             }, ct);
         }
 
-        protected virtual async Task<Stream> GetStreamAsync(string url, CancellationToken ct)
+        protected virtual Task<Stream> GetStreamAsync(string url, CancellationToken ct)
         {
             EnsureHttpClient();
-            return await Retry(async () =>
+            return Retry(async () =>
             {
                 var result = await _client.GetAsync(url, ct).ConfigureAwait(false);
                 try
@@ -235,7 +235,7 @@ namespace Meziantou.OneDrive
 
                     var s = new StreamWithDisposeEvents(stream);
                     s.Disposed += (sender, args) => result?.Dispose();
-                    return s;
+                    return (Stream)s;
                 }
                 catch
                 {
@@ -356,17 +356,17 @@ namespace Meziantou.OneDrive
             return httpClient;
         }
 
-        public Task<Stream> DownloadItemAsync(string path, CancellationToken ct = default(CancellationToken))
+        public Task<Stream> DownloadItemAsync(string path, CancellationToken ct = default)
         {
             return GetStreamAsync($"drive/root:{path}:/Content", ct);
         }
 
-        public Task<Stream> DownloadItemAsync(OneDriveItem item, CancellationToken ct = default(CancellationToken))
+        public Task<Stream> DownloadItemAsync(OneDriveItem item, CancellationToken ct = default)
         {
             return GetStreamAsync($"drive/items/{item.Id}/Content", ct);
         }
 
-        public async Task<OneDriveItem> CreateFileAsync(OneDriveItem parent, string fileName, Stream content, long length, int chunckSize, Func<ChunkUploadErrorEventArgs, bool> chunkErrorHandler, CancellationToken ct = default(CancellationToken))
+        public async Task<OneDriveItem> CreateFileAsync(OneDriveItem parent, string fileName, Stream content, long length, int chunckSize, Func<ChunkUploadErrorEventArgs, bool> chunkErrorHandler, CancellationToken ct = default)
         {
             if (length <= chunckSize)
             {
@@ -385,7 +385,7 @@ namespace Meziantou.OneDrive
                 {
                     using (var byteArrayContent = new ByteArrayContent(bytes, 0, read))
                     {
-                        long rangeTo = rangeFrom + read - 1;
+                        long rangeTo = rangeFrom + read - 1L;
                         try
                         {
                             byteArrayContent.Headers.ContentRange = new ContentRangeHeaderValue(rangeFrom, rangeTo, length);
@@ -403,7 +403,7 @@ namespace Meziantou.OneDrive
                         }
                         catch (Exception ex)
                         {
-                            if (await HandleExceptionAsync(ex, ct))
+                            if (await HandleExceptionAsync(ex, ct).ConfigureAwait(false))
                                 continue;
 
                             if (chunkErrorHandler != null)
@@ -427,17 +427,17 @@ namespace Meziantou.OneDrive
             return null; // TODO throw error
         }
 
-        public Task<OneDriveItem> GetItemAsync(string path, CancellationToken ct = default(CancellationToken))
+        public Task<OneDriveItem> GetItemAsync(string path, CancellationToken ct = default)
         {
             return GetAsync<OneDriveItem>($"drive/root:{path}:", OneDriveClientGetOptions.ReturnDefaultWhenNotFound, ct);
         }
 
-        public Task<OneDriveItem> GetRootFolderAsync(CancellationToken ct = default(CancellationToken))
+        public Task<OneDriveItem> GetRootFolderAsync(CancellationToken ct = default)
         {
             return GetAsync<OneDriveItem>("drive/root", OneDriveClientGetOptions.None, ct);
         }
 
-        public Task<OneDriveItem> CreateDirectoryAsync(OneDriveItem parent, string name, CancellationToken ct = default(CancellationToken))
+        public Task<OneDriveItem> CreateDirectoryAsync(OneDriveItem parent, string name, CancellationToken ct = default)
         {
             if (parent == null) throw new ArgumentNullException(nameof(parent));
             if (name == null) throw new ArgumentNullException(nameof(name));
@@ -446,20 +446,20 @@ namespace Meziantou.OneDrive
             var data = new
             {
                 Name = name,
-                Folder = new { }
+                Folder = new { },
             };
 
             return PostJsonAsync<OneDriveItem>($"drive/items/{parent.Id}/children", data, ct);
         }
 
-        public async Task<OneDriveItem> CreateDirectoryAsync(string path, CancellationToken ct = default(CancellationToken))
+        public async Task<OneDriveItem> CreateDirectoryAsync(string path, CancellationToken ct = default)
         {
             if (path == null) throw new ArgumentNullException(nameof(path));
 
             var parts = new Stack<string>();
 
             path = path.TrimEnd(PathSeparators);
-            OneDriveItem item = null;
+            OneDriveItem item;
             while (true)
             {
                 if (string.IsNullOrEmpty(path))
@@ -491,14 +491,14 @@ namespace Meziantou.OneDrive
             return item;
         }
 
-        public Task DeleteItemAsync(OneDriveItem item, CancellationToken ct = default(CancellationToken))
+        public Task DeleteItemAsync(OneDriveItem item, CancellationToken ct = default)
         {
             if (item == null) throw new ArgumentNullException(nameof(item));
 
             return DeleteAsync("drive/items/" + item.Id, ct);
         }
 
-        public async Task<IReadOnlyList<OneDriveItem>> GetChildrenAsync(OneDriveItem parent, CancellationToken ct = default(CancellationToken))
+        public async Task<IReadOnlyList<OneDriveItem>> GetChildrenAsync(OneDriveItem parent, CancellationToken ct = default)
         {
             string url = $"drive/items/{parent.Id}/children";
             var items = new List<OneDriveItem>();
@@ -513,7 +513,7 @@ namespace Meziantou.OneDrive
             return items;
         }
 
-        public Task<ThumbnailSet> GetThumbnailsAsync(OneDriveItem item, CancellationToken ct = default(CancellationToken))
+        public Task<ThumbnailSet> GetThumbnailsAsync(OneDriveItem item, CancellationToken ct = default)
         {
             return GetAsync<ThumbnailSet>($"drive/items/{item.Id}/thumbnails", OneDriveClientGetOptions.None, ct);
         }

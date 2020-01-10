@@ -6,6 +6,6 @@ namespace Meziantou.OneDrive
     public enum OneDriveClientGetOptions
     {
         None,
-        ReturnDefaultWhenNotFound
+        ReturnDefaultWhenNotFound,
     }
 }

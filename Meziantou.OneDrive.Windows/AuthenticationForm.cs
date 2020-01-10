@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace Meziantou.OneDrive.Windows
 {
-    internal partial class AuthenticationForm : Form
+    internal sealed partial class AuthenticationForm : Form
     {
         public string AuthorizationCode { get; private set; }
 

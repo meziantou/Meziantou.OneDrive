@@ -24,19 +24,19 @@ namespace Meziantou.OneDrive
 
             if (!string.IsNullOrEmpty(Code))
             {
-                errorStringBuilder.AppendFormat("Code: {0}", Code);
+                errorStringBuilder.Append("Code: ").Append(Code);
                 errorStringBuilder.Append(Environment.NewLine);
             }
 
             if (!string.IsNullOrEmpty(ThrowSite))
             {
-                errorStringBuilder.AppendFormat("Throw site: {0}", ThrowSite);
+                errorStringBuilder.Append("Throw site: ").Append(ThrowSite);
                 errorStringBuilder.Append(Environment.NewLine);
             }
 
             if (!string.IsNullOrEmpty(Message))
             {
-                errorStringBuilder.AppendFormat("Message: {0}", Message);
+                errorStringBuilder.Append("Message: ").Append(Message);
                 errorStringBuilder.Append(Environment.NewLine);
             }
 

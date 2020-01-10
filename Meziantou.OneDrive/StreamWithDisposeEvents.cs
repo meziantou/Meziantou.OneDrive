@@ -3,7 +3,7 @@ using System.IO;
 
 namespace Meziantou.OneDrive
 {
-    internal class StreamWithDisposeEvents : Stream
+    internal sealed class StreamWithDisposeEvents : Stream
     {
         private readonly Stream _stream;
         public event EventHandler Disposing;
@@ -72,12 +72,12 @@ namespace Meziantou.OneDrive
             set { _stream.Position = value; }
         }
 
-        protected virtual void OnDisposing()
+        private void OnDisposing()
         {
             Disposing?.Invoke(this, EventArgs.Empty);
         }
 
-        protected virtual void OnDisposed()
+        private void OnDisposed()
         {
             Disposed?.Invoke(this, EventArgs.Empty);
         }

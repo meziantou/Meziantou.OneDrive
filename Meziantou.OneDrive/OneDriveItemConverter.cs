@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace Meziantou.OneDrive
 {
-    internal class OneDriveItemConverter : JsonConverter
+    internal sealed class OneDriveItemConverter : JsonConverter
     {
         private readonly OneDriveClient _client;
 

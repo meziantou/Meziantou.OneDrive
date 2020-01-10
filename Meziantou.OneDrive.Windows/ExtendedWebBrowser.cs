@@ -33,7 +33,7 @@ namespace Meziantou.OneDrive.Windows
             NavigateError?.Invoke(this, e);
         }
 
-        private class WebBrowser2EventHelper : StandardOleMarshalObject, DWebBrowserEvents2
+        private sealed class WebBrowser2EventHelper : StandardOleMarshalObject, DWebBrowserEvents2
         {
             private readonly ExtendedWebBrowser _parent;
 

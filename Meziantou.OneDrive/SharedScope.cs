@@ -4,6 +4,6 @@ namespace Meziantou.OneDrive
     {
         Anonymous,
         Organization,
-        Users
+        Users,
     }
 }

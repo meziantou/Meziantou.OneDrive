@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace Meziantou.OneDrive
 {
-    internal class PagedResponse<T>
+    internal sealed class PagedResponse<T>
     {
         public List<T> Value { get; set; }
 

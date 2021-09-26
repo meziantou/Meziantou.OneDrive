@@ -1,16 +1,22 @@
 ﻿using System;
+using System.Net;
 
 namespace Meziantou.OneDrive
 {
     public class OneDriveException : Exception
     {
-        public OneDriveException(Error error, string message = null, Exception innerException = null)
-        : base(message, innerException)
+        public OneDriveException(Error error, HttpStatusCode httpStatusCode, string message = null, Exception innerException = null)
+            : base(message, innerException)
         {
             Error = error;
+            HttpStatusCode = httpStatusCode;
         }
 
         public Error Error { get; }
+
+        public HttpStatusCode HttpStatusCode { get; }
+
+        public int? RetryAfter { get; internal set; }
 
         public bool IsMatch(OneDriveErrorCode errorCode)
         {

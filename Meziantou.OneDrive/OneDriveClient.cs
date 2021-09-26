@@ -26,6 +26,7 @@ namespace Meziantou.OneDrive
         public IRefreshTokenHandler RefreshTokenHandler { get; set; }
         public IAuthorizationProvider AuthorizationProvider { get; set; }
         public bool AuthenticateOnUnauthenticatedError { get; set; } = true;
+        public bool HandleTooManyRequests { get; set; }
 
         public bool IsAuthenticated => _accessCode != null;
 
@@ -67,7 +68,7 @@ namespace Meziantou.OneDrive
 
             if (await RefreshAccessTokenAsync(ct).ConfigureAwait(false))
                 return IsAuthenticated;
-            
+
             var authorizationCode = AuthorizationProvider.GetAuthorizationCode(this);
             if (authorizationCode != null)
             {
@@ -124,6 +125,11 @@ namespace Meziantou.OneDrive
                 if (AuthenticateOnUnauthenticatedError && oneDriveException.IsMatch(OneDriveErrorCode.Unauthenticated))
                 {
                     return await AuthenticateAsync(true, ct).ConfigureAwait(false); // Force re-authentication
+                }
+
+                if (HandleTooManyRequests && oneDriveException.HttpStatusCode == (HttpStatusCode)429)
+                {
+
                 }
             }
 
@@ -323,7 +329,22 @@ namespace Meziantou.OneDrive
                         }
                     }
 
-                    throw new OneDriveException(error, content);
+                    int? retryAfter = null;
+                    if (message.Headers.TryGetValues("Retry-After", out var values))
+                    {
+                        foreach (var value in values)
+                        {
+                            if (!int.TryParse(value, out var parsedValue))
+                            {
+                                retryAfter = parsedValue;
+                            }
+                        }
+                    }
+
+                    throw new OneDriveException(error, message.StatusCode, content)
+                    {
+                        RetryAfter = retryAfter,
+                    };
                 }
                 finally
                 {

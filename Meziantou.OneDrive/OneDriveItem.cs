@@ -55,7 +55,7 @@ namespace Meziantou.OneDrive
             return _client.DeleteItemAsync(this, ct);
         }
 
-        public Task<IReadOnlyList<OneDriveItem>> GetChildrenAsync(CancellationToken ct)
+        public Task<IReadOnlyList<OneDriveItem>> GetChildrenAsync(CancellationToken ct = default)
         {
             return _client.GetChildrenAsync(this, ct);
         }
@@ -65,7 +65,7 @@ namespace Meziantou.OneDrive
             return _client.GetThumbnailsAsync(this, ct);
         }
 
-        public Task<OneDriveItem> CreateDirectoryAsync(string name, CancellationToken ct)
+        public Task<OneDriveItem> CreateDirectoryAsync(string name, CancellationToken ct = default)
         {
             return _client.CreateDirectoryAsync(this, name, ct);
         }
@@ -75,7 +75,7 @@ namespace Meziantou.OneDrive
             return _client.DownloadItemAsync(this, ct);
         }
 
-        public Task<OneDriveItem> CreateFileAsync(string fileName, Stream content, long length, int chunckSize, Func<ChunkUploadErrorEventArgs, bool> chunkErrorHandler, CancellationToken ct)
+        public Task<OneDriveItem> CreateFileAsync(string fileName, Stream content, long length, int chunckSize, Func<ChunkUploadErrorEventArgs, bool> chunkErrorHandler, CancellationToken ct = default)
         {
             return _client.CreateFileAsync(this, fileName, content, length, chunckSize, chunkErrorHandler, ct);
         }

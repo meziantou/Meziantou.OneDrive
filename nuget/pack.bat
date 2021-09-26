@@ -1,2 +1,0 @@
-dotnet pack ..\Meziantou.OneDrive\Meziantou.OneDrive.csproj -c Release -o "../nuget"
-nuget.exe pack ..\Meziantou.OneDrive.Windows\Meziantou.OneDrive.Windows.csproj -version "1.0.1" -OutputDirectory "." -properties Configuration=Release

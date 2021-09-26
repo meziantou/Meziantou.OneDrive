@@ -127,8 +127,10 @@ namespace Meziantou.OneDrive
                     return await AuthenticateAsync(true, ct).ConfigureAwait(false); // Force re-authentication
                 }
 
-                if (HandleTooManyRequests && oneDriveException.HttpStatusCode == (HttpStatusCode)429)
+                if (HandleTooManyRequests && oneDriveException.HttpStatusCode == (HttpStatusCode)429 && oneDriveException.RetryAfter.HasValue)
                 {
+                    await Task.Delay(oneDriveException.RetryAfter.Value, ct);
+                    return true;
 
                 }
             }

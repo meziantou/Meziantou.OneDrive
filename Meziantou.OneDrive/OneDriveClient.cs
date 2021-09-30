@@ -180,12 +180,12 @@ namespace Meziantou.OneDrive
             EnsureHttpClient();
             return Retry(async () =>
             {
-                using (var result = await _client.PostAsync(url, content, ct).ConfigureAwait(false))
-                {
-                    await EnsureResultAsync(result, ct).ConfigureAwait(false);
-                    var json = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    return JsonConvert.DeserializeObject<T>(json, CreateJsonSerializerSettings());
-                }
+                using var message = new HttpRequestMessage(HttpMethod.Post, url);
+                message.Content = content;
+                using var result = await _client.SendAsync(message, HttpCompletionOption.ResponseHeadersRead, ct).ConfigureAwait(false);
+                await EnsureResultAsync(result, ct).ConfigureAwait(false);
+                var json = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
+                return JsonConvert.DeserializeObject<T>(json, CreateJsonSerializerSettings());
             }, ct);
         }
 
@@ -206,7 +206,7 @@ namespace Meziantou.OneDrive
             EnsureHttpClient();
             return Retry(async () =>
             {
-                using (var result = await _client.GetAsync(url, ct).ConfigureAwait(false))
+                using (var result = await _client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead, ct).ConfigureAwait(false))
                 {
                     await EnsureResultAsync(result, ct).ConfigureAwait(false);
                 }
@@ -218,7 +218,7 @@ namespace Meziantou.OneDrive
             EnsureHttpClient();
             return Retry(async () =>
             {
-                using (var result = await _client.GetAsync(url, ct).ConfigureAwait(false))
+                using (var result = await _client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead, ct).ConfigureAwait(false))
                 {
                     if (options.HasFlag(OneDriveClientGetOptions.ReturnDefaultWhenNotFound) && result.StatusCode == HttpStatusCode.NotFound)
                         return default;
@@ -235,7 +235,7 @@ namespace Meziantou.OneDrive
             EnsureHttpClient();
             return Retry(async () =>
             {
-                var result = await _client.GetAsync(url, ct).ConfigureAwait(false);
+                var result = await _client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead, ct).ConfigureAwait(false);
                 try
                 {
                     await EnsureResultAsync(result, ct).ConfigureAwait(false);
@@ -259,15 +259,11 @@ namespace Meziantou.OneDrive
             EnsureHttpClient();
             return Retry(async () =>
             {
-                using (var sc = new StreamContent(content))
-                {
-                    using (var result = await _client.PutAsync(url, sc, ct).ConfigureAwait(false))
-                    {
-                        await EnsureResultAsync(result, ct).ConfigureAwait(false);
-                        var json = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
-                        return JsonConvert.DeserializeObject<T>(json, CreateJsonSerializerSettings());
-                    }
-                }
+                using var sc = new StreamContent(content);
+                using var result = await _client.PutAsync(url, sc, ct).ConfigureAwait(false);
+                await EnsureResultAsync(result, ct).ConfigureAwait(false);
+                var json = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
+                return JsonConvert.DeserializeObject<T>(json, CreateJsonSerializerSettings());
             }, ct);
         }
 
